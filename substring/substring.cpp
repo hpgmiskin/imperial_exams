@@ -1,17 +1,13 @@
 /*
-Substring implimentation file
+Substring implementation file
  */
-
-#include <cstring>
-#include <iostream>
-using namespace std;
 
 #include "substring.h"
 
 bool is_prefix(const char* substring, const char* string)
 {
   //check base case of empty substring
-  if (!strcmp(substring,""))
+  if (*substring == '\0')
     return true;
 
   //check if first characters are equal
@@ -28,7 +24,8 @@ int substring_position(const char* substring, const char* string)
 
   //check if is_prefix can be realised for each character in string
   do {
-    if (is_prefix(substring,string+position)) return position;
+    if (is_prefix(substring,string+position))
+      return position;
     position++;
   } while (*(string+position) != '\0');
 
