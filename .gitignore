@@ -4,3 +4,6 @@ getExams.py
 
 #Large Files
 Prolog Bratko Exercises.pdf
+
+#C++
+*.o
