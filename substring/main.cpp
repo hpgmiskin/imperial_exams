@@ -11,6 +11,8 @@ int test()
   cout << is_prefix("","this could be anythin") << endl;
   cout << is_prefix(" ","grhrhg") << endl;
   cout << is_prefix("","") << endl;
+
+  return 0;
 }
 
 int main() {

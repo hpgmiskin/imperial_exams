@@ -1,7 +1,5 @@
 #makefile
 
-all: substring run
-
 FLAGS = -std=c++11 -Wall -g
 
 substring: main.o substring.o
