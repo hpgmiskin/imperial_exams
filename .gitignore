@@ -2,8 +2,13 @@
 *.pyc
 getExams.py
 
+#C++
+*.o
+
 #PDF Files
 *.pdf
 
-#C++
-*.o
+#LaTeX
+*.aux
+*.log
+*.synctex.gz
