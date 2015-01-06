@@ -3,6 +3,20 @@
 
 using namespace std;
 
+void test()
+{
+  cout << "Compare a and B: " << compare('a','b') << endl;
+  cout << "Compare b and a: " << compare('b','a') << endl;
+  cout << "Compare . and b: " << compare('.','b') << endl;
+  cout << "Compare g and .: " << compare('g','.') << endl;
+  cout << "Compare . and .: " << compare('.','.') << endl;
+
+  char string[20] = "abcd..BCD";
+  sort(string);
+  cout << "Sort abcd..BCD:" << string << endl;
+
+}
+
 int main() {
 
   /*** QUESTION 1 ***/
@@ -39,6 +53,8 @@ int main() {
     cout << "NOT ";
   cout << "a palindrome." << endl << endl;
 
+  // test();
+  
   /*** QUESTION 4 ***/
 
   cout << "The string 'I am a weakish speller!' is ";
