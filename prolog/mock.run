@@ -1,0 +1,14 @@
+consult(mock).
+
+ecb(M), write(M), nl, fail.
+
+mother_of_the_youngest(M), write(M), nl, fail.
+
+mothers_of_young(LM), write(LM), nl, fail.
+
+L1=[1,2,4,6,7,9], L2=[5,5,5,7,8,9], merge(L1,L2,L), write(L1-L2-L).
+
+N=0, L=[1,3,6,f,g,7,f], findElement(N,L,E), write(E).
+N=2, L=[1,3,6,f,g,7,f], findElement(N,L,E), write(E).
+N=5, L=[1,3,6,f,g,7,f], findElement(N,L,E), write(E).
+N=10, L=[1,3,6,f,g,7,f], findElement(N,L,E), write(E).
