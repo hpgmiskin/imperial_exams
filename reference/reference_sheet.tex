@@ -20,10 +20,11 @@
 %Colour definitions
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 \definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+%\color{airforceblue}
 
 %Minted Configurations
 \newminted{cpp}{gobble=1}
-\newminted{bash}{gobble=2}
+\newminted{bash}{gobble=0,linenos,numbersep=0pt}
 
 \begin{multicols}{2}
 [\section*{Code}]
@@ -38,7 +39,7 @@
   using namespace std;  
 \end{cppcode}
 
-\subsubsection*{\color{airforceblue}$<$cstring$>$}
+\subsubsection*{$<$cstring$>$}
 \begin{cppcode}
   strcmp(const char* str1, const char* str2);
   strcpy(char* destination, const char* source);
@@ -47,28 +48,34 @@
   strtok(char* str, const char* delimiters);
 \end{cppcode}
 
-\subsubsection*{\color{airforceblue}$<$cctype$>$}
+\begin{multicols}{2}
+[\subsubsection*{$<$cctype$>$}]
 \begin{cppcode}
-  isalnum(char);
-  isalpha(char);
-  isnum(char);
-  isupper(char);
-  islower(char);
-  ispunct(char);
-  isspace(char);
+  bool = isalnum(char);
+  bool = isalpha(char);
+  bool = isnum(char);
+
+  bool = ispunct(char);
+  bool = isspace(char);
+  bool = iscntrl(char);
+  bool = isupper(char);
+  bool = islower(char);
+
+  char = tolower(char);
+  char = toupper(char);
 \end{cppcode}
+\end{multicols}
 
-\subsubsection*{\color{airforceblue}$<$iostream$>$}
+\subsubsection*{$<$iostream$>$}
 \begin{cppcode}
-  // Get form input
   cin.get(char);
-  cin.getline (char* s, streamsize n, char delim )
+  cin.getline (char* s, streamsize n)
+  cin.getline (char* s, streamsize n, char delim)
 
-  // Set output
   cout.width(int);
 \end{cppcode}
 
-\subsubsection*{\color{airforceblue}$<$fstream$>$}
+\subsubsection*{$<$fstream$>$}
 \begin{cppcode}
   // File Streams
   fstream.open(const char* filename)
@@ -78,6 +85,7 @@
   ifstream input; // Inherits from cin
   input.putback() // Replaces char & moves pointer
 
+  char ch = input.peek();
   int position = input.tellg()
   input.seekg(int position, input.end)
 
@@ -113,36 +121,50 @@
   delete [] reversed;
 \end{cppcode}
 
+\subsubsection*{Function Pointers}
+\begin{cppcode}
+  int (*sumPointer) (int, int);
+  sumPointer = sumFunction;
+  sumPointer(int, int) == sumFunction(int, int);
+\end{cppcode}
+
 \subsection*{Containers}
+
+\begin{tabular}{ll}
+\textbf{Name} \hspace{0.6cm} & \textbf{Properties} \\
+list & non continuous storage of data \\
+vector & single end sequence containers \\
+deque & double end sequence containers \\
+\end{tabular}
 
 \subsubsection*{Map}
 \begin{cppcode}
-  map<int, char> thisMap;
-  map<int, char>::iterator it;
-  thisMap.count(key);
+  map<int, char> myMap;
+  map<int, char>::iterator myIterator;
+
+  int myMap.count(key);
+  myIterator = myMap.find(key);
+  myIterator == myMap.end();    // Not found
+  myMap.erase(myIterator);
+
+  key = myIterator->first;
+  value = myIterator->second;
 \end{cppcode}
 
 \subsubsection*{String}
 \begin{cppcode}
-  string thisString;
-  thisString.to_str();
-  thisString.push_back(char); // Add char to string
-  thisString.pop_back();      // Remove last char
+  string myString ("This is my string!");
+
+  myString.append(string str);
+  myString.append(string str, int subpos, int sublen);
+  myString.append(char* str, int n);
+  myString.append(int n, charT c);
+
+  myString.to_str();        // To C string
+  myString.push_back(char); // Add char to string
+  myString.pop_back();      // Remove last char
+  string.clear()            // Clear string contents
 \end{cppcode}
-
-\subsection*{Makefile}
-\begin{bashcode}
-  FLAGS = -std=c++11 -g -Wall
-
-  shrink: main.o shrink.o
-    g++ $(FLAGS) main.o shrink.o -o shrink #$
-
-  main.o: main.cpp
-    g++ $(FLAGS) -c main.cpp #$
-
-  shrink.o: shrink.h shrink.cpp
-    g++ $(FLAGS) -c shrink.cpp #$
-\end{bashcode}
 \end{multicols}
 
 \pagebreak
@@ -154,13 +176,11 @@
 \subsection*{Split String}
 \begin{cppcode}
   string str ("Split this sentence into tokens");
-
   char * cstr = new char [str.length()+1];
   strcpy (cstr, str.c_str());
 
   char * p = strtok (cstr," ");
-  while (p!=0)
-  {
+  while (p != 0){
     cout << p << '\n';
     p = strtok(NULL," ");
   }
@@ -171,8 +191,9 @@
 
 \subsection*{Sort Array}
 \begin{cppcode}
-  char temp;
-  unsigned int i = 0, j;
+  char string[100];   // String to sort
+  char temp;          // Temporary variable
+  int i (0), j (0);
   do {
     j = i;
     do {
@@ -187,22 +208,78 @@
   } while (string[i] != '\0');
 \end{cppcode}
 
-
-\subsection*{Char Int Conversion}
+\subsection*{Read From File}
 \begin{cppcode}
-  int i = 3;
+  ifstream ifs ("test.txt", ifstream::in);
+  if (ifs) {
+    ifs.seekg (0, ifs.end);
+    int length = ifs.tellg();
+    ifs.seekg (0, ifs.beg);
+
+    char * buffer = new char [length];
+    ifs.read (buffer,length);
+    ifs.close();
+
+    cout.write (buffer,length);
+    delete[] buffer;
+  }
+\end{cppcode}
+
+\subsection*{Makefile}
+\begin{bashcode}
+  FLAGS = -std=c++11 -Wall -g
+
+  file: file.o main.o
+    g++ $(FLAGS) file.o main.o -o file #$
+
+  file.o: file.cpp file.h
+  main.o: main.cpp
+
+  %.o: %.cpp
+    g++ $(FLAGS) -c $<
+\end{bashcode}
+
+\vfill
+\columnbreak
+
+\subsection*{Containers}
+
+\subsubsection*{Loop Through Map}
+\begin{cppcode}
+  map<string, int> myMap;
+
+  myMap["one"] = 1;
+  myMap["two"] = 2;
+
+  for ( const auto &myPair : myMap ) {
+      cout << myPair.first << " - ";
+      cout << myPair.second << endl;
+  }
+\end{cppcode}
+
+\subsection*{Characters \& Integers}
+
+\subsubsection*{Conversion}
+\begin{cppcode}
+  int i (3);
   char ch;
   ch = (char)(((int)'0')+i);  // 48 + 3 = 51
   cout << ch << endl;         // '0' + 3 = '3'
 \end{cppcode}
 
+\subsubsection*{Integer Manipulation}
+\begin{cppcode}
+  int i (1234);
+  cout << i/10;   // 123
+  cout << i/100;  // 12
+  cout << i%10;   // 234
+  cout << i%100;  // 34
+\end{cppcode}
 
 \vfill
-\columnbreak
-
 
 \begin{center}
-\footnotesize
+\scriptsize %footnotesize
 \begin{tabular}{rlrlrlrl}
 \textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} \\
 0   & NUL & 32  & SP  & 64  & @ & 96  & ` \\
@@ -245,6 +322,4 @@
 \end{center}
 
 \end{multicols}
-
-
 \end{document}
