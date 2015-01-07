@@ -5,8 +5,20 @@
 
 using namespace std;
 
+void test()
+{
+  cout << isVowel('a',0,10) << endl;
+  cout << isVowel('u',0,10) << endl;
+  cout << isVowel('y',0,10) << endl;
+  cout << isVowel('y',10,10) << endl;
+  cout << isVowel('y',3,10) << endl;
+  cout << endl;
+}
+
 int main() {
 
+  // test();
+  
   /* QUESTION 1 */
 
   cout << "====================== Question 1 ======================" << endl;
@@ -41,7 +53,7 @@ int main() {
   translateWord("Yellow", translated);
   cout << "In Pig Latin 'Yellow' is '" << translated << "'." << endl;
   cout << endl;
-
+  
   /* QUESTION 3 */
   
   cout << "====================== Question 3 ======================" << endl;
