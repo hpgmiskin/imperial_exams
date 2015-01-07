@@ -1,82 +1,250 @@
-\documentclass[10pt]{article}
-\usepackage[margin=1cm]{geometry}
+\documentclass[10pt,a4paper]{extarticle}
+\usepackage[margin=1cm,bmargin=1.6cm]{geometry}
 
-\usepackage{minted}
-\usepackage{multicol}
+\usepackage{color,minted,multicol,fancyhdr}
+\pagestyle{fancy}
 
 \begin{document}
 
+%Document Properties
+\title{Exam Reference}
+\author{Henry Miskin}
 
+%Header and Footer Setup
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{hpm14@ic.ac.uk}
+\cfoot{\thepage}
+\rfoot{\today}
+
+%Colour definitions
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+
+%Minted Configurations
+\newminted{cpp}{gobble=1}
+\newminted{bash}{gobble=2}
 
 \begin{multicols}{2}
-[
-\section{Key Packages}
-These are key packages that are required
-]
+[\section*{Code}]
+\subsection*{Key Packages}
 
-\newminted{cpp}{
-                gobble=2,
-                linenos,
-                numbersep=5pt,
-                gobble=2,
-                frame=lines,
-                framesep=2mm}
-
+\subsubsection*{$\#$include}
 \begin{cppcode}
-  #include <iostream>
-  #include <fstream>
   #include <cstring>
   #include <cctype>
+  #include <iostream>
+  #include <fstream>
   using namespace std;  
 \end{cppcode}
 
+\subsubsection*{\color{airforceblue}$<$cstring$>$}
 \begin{cppcode}
-strcmp(const char* str1, const char* str2);
-strcpy ( char * destination, const char * source );
-strlen ( const char * str );
-strtok ( char * str, const char * delimiters );
-
+  strcmp(const char* str1, const char* str2);
+  strcpy(char* destination, const char* source);
+  strcat(char* destination, const char* source);
+  strlen(const char* str);
+  strtok(char* str, const char* delimiters);
 \end{cppcode}
+
+\subsubsection*{\color{airforceblue}$<$cctype$>$}
+\begin{cppcode}
+  isalnum(char);
+  isalpha(char);
+  isnum(char);
+  isupper(char);
+  islower(char);
+  ispunct(char);
+  isspace(char);
+\end{cppcode}
+
+\subsubsection*{\color{airforceblue}$<$iostream$>$}
+\begin{cppcode}
+  // Get form input
+  cin.get(char);
+  cin.getline (char* s, streamsize n, char delim )
+
+  // Set output
+  cout.width(int);
+\end{cppcode}
+
+\subsubsection*{\color{airforceblue}$<$fstream$>$}
+\begin{cppcode}
+  // File Streams
+  fstream.open(const char* filename)
+  fstream.close()
+
+  // Input Streams
+  ifstream input; // Inherits from cin
+  input.putback() // Replaces char & moves pointer
+
+  int position = input.tellg()
+  input.seekg(int position, input.end)
+
+  bool input.eof()      // Check if end of file
+  bool input.fail()     // Check for fail bit
+  bool input.is_open()  // Check if file open
+  
+  // Output Streams
+  ofstream output;
+  output.put(char)
+
+  position = input.tellp()
+  input.seekp(int position, input.end)
+\end{cppcode}
+
+\vfill
+\columnbreak
+
+\subsection*{Pointers}
+
+\subsubsection*{Arithmetic}
+\begin{cppcode}
+  int *ip;      // Integer pointer
+  int a[10];    // Integer array
+  ip = &a[3];   // *ip == a[3]
+  ip2 = ip + 1; // *ip2 == a[4]
+  *ip2 = 4;     // a[4] = 4
+\end{cppcode}
+
+\subsubsection*{Heap Allocation}
+\begin{cppcode}
+  char* reversed = new char[length];
+  delete [] reversed;
+\end{cppcode}
+
+\subsection*{Containers}
+
+\subsubsection*{Map}
+\begin{cppcode}
+  map<int, char> thisMap;
+  map<int, char>::iterator it;
+  thisMap.count(key);
+\end{cppcode}
+
+\subsubsection*{String}
+\begin{cppcode}
+  string thisString;
+  thisString.to_str();
+  thisString.push_back(char); // Add char to string
+  thisString.pop_back();      // Remove last char
+\end{cppcode}
+
+\subsection*{Makefile}
+\begin{bashcode}
+  FLAGS = -std=c++11 -g -Wall
+
+  shrink: main.o shrink.o
+    g++ $(FLAGS) main.o shrink.o -o shrink #$
+
+  main.o: main.cpp
+    g++ $(FLAGS) -c main.cpp #$
+
+  shrink.o: shrink.h shrink.cpp
+    g++ $(FLAGS) -c shrink.cpp #$
+\end{bashcode}
+\end{multicols}
+
+\pagebreak
+
+\begin{multicols}{2}
+[\section*{Code Snippets}]
+
+
+\subsection*{Split String}
+\begin{cppcode}
+  string str ("Split this sentence into tokens");
+
+  char * cstr = new char [str.length()+1];
+  strcpy (cstr, str.c_str());
+
+  char * p = strtok (cstr," ");
+  while (p!=0)
+  {
+    cout << p << '\n';
+    p = strtok(NULL," ");
+  }
+
+  delete[] cstr;
+  return 0;
+\end{cppcode}
+
+\subsection*{Sort Array}
+\begin{cppcode}
+  char temp;
+  unsigned int i = 0, j;
+  do {
+    j = i;
+    do {
+      if (compare(string[j],string[i])){
+        temp = string[j];
+        string[j] = string[i];
+        string[i] = temp;
+      } 
+      j++;
+    } while (string[j] != '\0');
+    i++;
+  } while (string[i] != '\0');
+\end{cppcode}
+
+
+\subsection*{Char Int Conversion}
+\begin{cppcode}
+  int i = 3;
+  char ch;
+  ch = (char)(((int)'0')+i);  // 48 + 3 = 51
+  cout << ch << endl;         // '0' + 3 = '3'
+\end{cppcode}
+
+
+\vfill
+\columnbreak
+
+
+\begin{center}
+\footnotesize
+\begin{tabular}{rlrlrlrl}
+\textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} & \textbf{Int} & \textbf{Char} \\
+0   & NUL & 32  & SP  & 64  & @ & 96  & ` \\
+1   & SOH & 33  & ! & 65  & A & 97  & a \\
+2   & STX & 34  & " & 66  & B & 98  & b \\
+3   & ETX & 35  & \# & 67  & C & 99  & c \\
+4   & EOT & 36  & \$  & 68  & D & 100 & d \\
+5   & ENQ & 37  & \%  & 69  & E & 101 & e \\
+6   & ACK & 38  & \&  & 70  & F & 102 & f \\
+7   & BEL & 39  & ' & 71  & G & 103 & g \\
+8   & BS  & 40  & ( & 72  & H & 104 & h \\
+9   & HT  & 41  & ) & 73  & I & 105 & i \\
+10  & LF  & 42  & * & 74  & J & 106 & j \\
+11  & VT  & 43  & + & 75  & K & 107 & k \\
+12  & FF  & 44  & , & 76  & L & 108 & l \\
+13  & CR  & 45  & - & 77  & M & 109 & m \\
+14  & SO  & 46  & . & 78  & N & 110 & n \\
+15  & SI  & 47  & / & 79  & O & 111 & o \\
+16  & DLE & 48  & 0 & 80  & P & 112 & p \\
+17  & DC1 & 49  & 1 & 81  & Q & 113 & q \\
+18  & DC2 & 50  & 2 & 82  & R & 114 & r \\
+19  & DC3 & 51  & 3 & 83  & S & 115 & s \\
+20  & DC4 & 52  & 4 & 84  & T & 116 & t \\
+21  & NAK & 53  & 5 & 85  & U & 117 & u \\
+22  & SYN & 54  & 6 & 86  & V & 118 & v \\
+23  & ETB & 55  & 7 & 87  & W & 119 & w \\
+24  & CAN & 56  & 8 & 88  & X & 120 & x \\
+25  & EM  & 57  & 9 & 89  & Y & 121 & y \\
+26  & SUB & 58  & : & 90  & Z & 122 & z \\
+27  & ESC & 59  & ; & 91  & [ & 123 & \{ \\
+28  & FS  & 60  & < & 92  & \textbackslash  & 124 & | \\
+29  & GS  & 61  & = & 93  & ] & 125 & \} \\
+30  & RS  & 62  & > & 94  & \textasciicircum  & 126 & \textasciitilde \\
+31  & US  & 63  & ? & 95  & \_ & 127 & DEL
+\end{tabular}
+\end{center}
+
+\begin{center}
+\large{ASCII Table}
+\end{center}
 
 \end{multicols}
 
-\section{Next}
-Next
-
-%\begin{multicols}{1}
-\begin{minted}{bash}
-#Makefile
-
-FLAGS = -std=c++11 -g -Wall
-
-shrink: main.o shrink.o
-        g++ $(FLAGS) main.o shrink.o -o shrink
-
-main.o: main.cpp
-        g++ $(FLAGS) -c main.cpp
-
-shrink.o: shrink.h shrink.cpp
-
-      g++ $(FLAGS) -c shrink.cpp
-      
-\end{minted}
-%\end{multicols}
-
-\begin{minted}[mathescape,
-               linenos,
-               numbersep=5pt,
-               gobble=2,
-               frame=lines,
-               framesep=2mm]{csharp}
-               
-  string title = "This is a Unicode π in the sky"
-  /*
-  Defined as $\pi=\lim_{n\to\infty}\frac{P_n}{d}$ where $P$ is the perimeter
-  of an $n$-sided regular polygon circumscribing a
-  circle of diameter $d$.
-  */
-  const double pi = 3.1415926535
-  
-\end{minted}
 
 \end{document}
