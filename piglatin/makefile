@@ -6,10 +6,10 @@ piglatin: piglatin.o main.o
 	g++ $(FLAGS) piglatin.o main.o -o piglatin
 
 piglatin.o: piglatin.cpp piglatin.h
-	g++ $(FLAGS) -c piglatin.cpp
-
 main.o: main.cpp
-	g++ $(FLAGS) -c main.cpp
+
+%.o: %.cpp
+	g++ $(FLAGS) -c $<
 
 run:
 	./piglatin
