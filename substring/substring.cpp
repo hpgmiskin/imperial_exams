@@ -31,3 +31,7 @@ int substring_position(const char* substring, const char* string)
 
   return -1;
 }
+
+int substring_position_2(const char* s,const char* l){                                                                                 
+    return strstr(l,s)?strstr(l,s)-l:-1;                                                                                   
+}  
