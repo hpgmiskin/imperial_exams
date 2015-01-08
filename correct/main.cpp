@@ -1,11 +1,28 @@
 #include <iostream>
+#include <cstring>
 #include "correct.h"
 
 using namespace std;
 
+void test()
+{
+  cout << character_to_integer('2') << endl;
+  cout << character_to_integer('9') << endl;
+
+  cout << parity('1','1','1') << " = odd = 1" << endl;
+  cout << parity('1','1','1') << " = odd = 1" << endl;
+  cout << parity('1','0','1') << " = even = 0" << endl;
+
+  cout << parity('1','1','1','1') << " = even = 0" << endl;
+  cout << parity('1','1','0','1') << " = odd = 1" << endl;
+}
+
 int main() {
 
+  cout << "==== TEST ====" << endl;
 
+  test();
+  
   /* this section illustrates the use of the pre-supplied helper functions */
   cout << "================== Helper functions ====================" << endl << endl;
 
