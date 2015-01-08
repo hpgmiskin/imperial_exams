@@ -22,7 +22,7 @@ int main() {
   /* prints the maze with row and column numbers */
   print_maze(maze,height,width);
   cout << endl;
-
+  
   cout << "====================== Question 1 ======================" << endl << endl;
 
   int row = 0, column = 0;
