@@ -1,3 +1,6 @@
+#include <fstream>
+using namespace std;
+
 // RESET is a constant used by function rhyming_letter(...)
 #define RESET NULL
 
@@ -18,3 +21,27 @@ bool get_word(const char *input_line, int number, char *output_word);
    poem) by calling rhyming_letter(RESET). */
 
 char rhyming_letter(const char *ending);
+
+//is_vowel returns true if the given character is a vowel
+bool is_vowel(char ch);
+
+//has_vowel returns true if the given word contains a vowel
+bool has_vowel(const char* word);
+
+//open_file takes a filename and reference ifstream, if file found ifstream
+//set and true returned
+bool open_file(const char* filename, ifstream &input);
+
+//count words counts the number of words in a line
+int count_words(const char* sentence);
+
+// find_phonic ending uses dictionary.txt to find the phonic ending of the
+// given word
+bool find_phonetic_ending(const char* word, char* ending);
+
+// find_rhyme scheme finds the rhyming scheme in the given file returns false
+// if the file does not exist
+bool find_rhyme_scheme(const char* filename, char* scheme);
+
+// identify sonnet takes the given filename and identifies the sonnet contained
+const char* identify_sonnet(const char* filename);

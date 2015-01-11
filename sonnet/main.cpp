@@ -92,6 +92,12 @@ int main() {
   cout << "The sonnet mystery.txt is a(n) " << 
     identify_sonnet("mystery.txt") << " sonnet" << endl;
 
+  cout << "The sonnet shakespeare.txt is a(n) " << 
+    identify_sonnet("shakespeare.txt") << " sonnet" << endl;
+
+  cout << "The sonnet petrarch.txt is a(n) " << 
+    identify_sonnet("petrarch.txt") << " sonnet" << endl;
+
   cout << endl;
 
   cout << "======================= The End ========================" << endl << endl;
